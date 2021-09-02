@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    font-family: 'Nunito Sans';
+}
+
+.layout {
+    grid-template-rows: auto 1fr auto;
+}
+
+@screen md {
+    .index {
+        grid-template-columns: 1rem 40% 2rem 1fr 1rem;
+        grid-template-areas: ". left-lane . right-lane .";
+    }
+}
