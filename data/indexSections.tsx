@@ -1,5 +1,14 @@
-import { IIndexSection } from '../components/IndexSections/converters/ToIndexSectionConverter';
 import NextLink from '../components/NextLink';
+import { ReactNode } from 'react';
+import { ImageProps } from 'next/image';
+
+export interface IIndexSection {
+  actionButton: ReactNode;
+  heading: string;
+  img: ImageProps;
+  tag?: keyof HTMLElementTagNameMap;
+  textContent: ReactNode;
+}
 
 const getIndexSections = (): IIndexSection[] => {
   return [

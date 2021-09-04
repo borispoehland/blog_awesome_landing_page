@@ -1,15 +1,13 @@
-import Image, { ImageProps } from 'next/image';
-import { ElementType, ReactNode } from 'react';
-
-export interface IIndexSection {
-  actionButton?: ReactNode;
-  heading: string;
-  img: ImageProps;
-  tag?: keyof HTMLElementTagNameMap;
-  textContent: ReactNode;
-}
+import Image from 'next/image';
+import { ElementType } from 'react';
+import { IIndexSection } from '../../../data/indexSections';
 
 interface IProps extends IIndexSection {}
+
+const imgDimensions = {
+  width: 1920,
+  height: 1080,
+};
 
 const LeftLaneItem = ({
   heading,
@@ -20,15 +18,15 @@ const LeftLaneItem = ({
 }: IProps) => {
   const Tag = tag as ElementType;
   return (
-    <div className="left-lane-item relative flex flex-col justify-center invisible">
+    <div className="left-lane-item relative flex flex-col justify-center">
       <div className="md:hidden">
-        <Image width={1920} height={1080} {...img} />
+        <Image {...imgDimensions} {...img} />
       </div>
       <div className="my-2 md:pt-2 md:mt-0">
         <h1 className="text-3xl bold">{heading}</h1>
       </div>
       <Tag className="mb-3 overflow-y-auto">{textContent}</Tag>
-      {actionButton && <div className="md:pb-2">{actionButton}</div>}
+      <div className="md:pb-2">{actionButton}</div>
     </div>
   );
 };

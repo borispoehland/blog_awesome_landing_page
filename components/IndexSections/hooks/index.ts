@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
+import { MutableRefObject, RefObject, useEffect, useState } from 'react';
 import resolveConfig from 'tailwindcss/resolveConfig';
 import tailwindConfig from '../../../tailwind.config.js';
+import { IIndexSectionProps } from '../IndexSections';
 
 // @ts-ignore
 const fullConfig = resolveConfig(tailwindConfig);
@@ -16,15 +17,15 @@ const delayPercentValue = (percent: number, startAt: number): number => {
   return Math.max(alreadyReached / toReach, 0);
 };
 
-export const useOpacityChangeOnScroll = (
-  leftLaneTopOffset: number,
-  rightLaneStartCliff: number,
-) => {
+export const useOpacityChangeOnScroll = ({
+  leftLaneTopOffset,
+  rightLaneStartCliff,
+}: IIndexSectionProps) => {
   useEffect(() => {
     $('.left-lane-item').percentAboveBottom(function callback(
       this: HTMLElement,
       percent,
-      index,
+      index
     ): void {
       const isFirst = index === 0;
       if (!isFirst) {
@@ -47,45 +48,47 @@ export const useOpacityChangeOnScroll = (
 
 export interface IHeightValues {
   leftLaneItemHeight: number;
-  indexSectionStartFromTopInPercent: number;
+  triggerHook: number;
 }
 
-export const useAdaptLeftLaneItemHeight = () => {
+export const useAdaptLeftLaneItemHeight = (
+  container: MutableRefObject<HTMLDivElement>
+) => {
   const [height, setHeight] = useState<IHeightValues>({
     leftLaneItemHeight: 0,
-    indexSectionStartFromTopInPercent: 0,
+    triggerHook: 0,
   });
 
   useEffect(() => {
-    const $navbar = $('.navbar');
+    const $container = $(container.current);
     const $window = $(window);
     const $leftLaneItem = $('.left-lane-item');
 
-    const adaptMobileLaneItemHeight = () => {
-      const spaceFromTop = $navbar.outerHeight(false) as number;
+    const adaptLeftLaneItemHeight = () => {
+      const spaceFromTop = $container.offset()?.top as number;
       const doubleSpaceFromTop = 2 * spaceFromTop;
       const leftLaneHeightAsCss = `calc(100vh - ${doubleSpaceFromTop}px)`;
 
       isMinWidthMd()
-        ? $leftLaneItem.css({ height: leftLaneHeightAsCss, minHeight: 0, visibility: 'visible' })
-        : $leftLaneItem.css({ height: 'auto', minHeight: leftLaneHeightAsCss, visibility: 'visible' });
+        ? $leftLaneItem.css({ height: leftLaneHeightAsCss, minHeight: 0 })
+        : $leftLaneItem.css({ height: 'auto', minHeight: leftLaneHeightAsCss });
 
       const leftLaneHeightAsPx = $leftLaneItem.height() as number;
       const windowHeightAsPx = $window.height() as number;
 
       setHeight({
         leftLaneItemHeight: leftLaneHeightAsPx,
-        indexSectionStartFromTopInPercent: spaceFromTop / windowHeightAsPx,
+        triggerHook: spaceFromTop / windowHeightAsPx,
       });
     };
 
-    adaptMobileLaneItemHeight();
-    $window.on('resize', adaptMobileLaneItemHeight);
+    adaptLeftLaneItemHeight();
+    $window.on('resize', adaptLeftLaneItemHeight);
 
     return () => {
-      $window.off('resize', adaptMobileLaneItemHeight);
+      $window.off('resize', adaptLeftLaneItemHeight);
     };
-  }, []);
+  }, [container]);
 
   return height;
 };
