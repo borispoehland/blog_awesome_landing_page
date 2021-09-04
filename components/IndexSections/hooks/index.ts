@@ -1,7 +1,10 @@
-import { MutableRefObject, RefObject, useEffect, useState } from 'react';
+import { MutableRefObject, useEffect, useMemo, useState } from 'react';
 import resolveConfig from 'tailwindcss/resolveConfig';
 import tailwindConfig from '../../../tailwind.config.js';
 import { IIndexSectionProps } from '../IndexSections';
+import getIndexSections from '../../../data/indexSections';
+import ToIndexSectionConverter from '../converters/ToIndexSectionConverter';
+import { zip } from 'lodash';
 
 // @ts-ignore
 const fullConfig = resolveConfig(tailwindConfig);
@@ -16,6 +19,12 @@ const delayPercentValue = (percent: number, startAt: number): number => {
   const alreadyReached = percent - startAt;
   return Math.max(alreadyReached / toReach, 0);
 };
+
+export const useLeftAndRightLane = () =>
+  useMemo(() => {
+    const pairs = getIndexSections().map(ToIndexSectionConverter);
+    return zip(...pairs); // [[left1, right1], [left2, right2]] => [[left1, left2], [right1, right2]]
+  }, []);
 
 export const useOpacityChangeOnScroll = ({
   leftLaneTopOffset,

@@ -15,7 +15,7 @@ const getIndexSections = (): IIndexSection[] => {
     {
       heading: '1st heading',
       img: {
-        src: '/img/1.png',
+        src: '/img/1.png', // public/img/1.png is the path
         alt: 'This is the first image',
         priority: true,
       },
@@ -34,7 +34,7 @@ const getIndexSections = (): IIndexSection[] => {
     {
       heading: '2nd heading',
       img: {
-        src: '/img/2.png',
+        src: '/img/2.png', // public/img/2.png is the path
         alt: 'This is the second image',
         priority: false,
       },
@@ -52,7 +52,7 @@ const getIndexSections = (): IIndexSection[] => {
     {
       heading: '3rd heading',
       img: {
-        src: '/img/3.png',
+        src: '/img/3.png', // public/img/3.png is the path
         alt: 'This is the third image',
         priority: false,
       },

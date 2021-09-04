@@ -1,13 +1,14 @@
-import { zip } from 'lodash';
-import { useAdaptLeftLaneItemHeight, useOpacityChangeOnScroll } from './hooks';
+import {
+  useAdaptLeftLaneItemHeight,
+  useLeftAndRightLane,
+  useOpacityChangeOnScroll,
+} from './hooks';
 import { Controller, Scene } from 'react-scrollmagic';
-import ToIndexSectionConverter from './converters/ToIndexSectionConverter';
-import { MutableRefObject, useMemo, useRef } from 'react';
-import getIndexSections from '../../data/indexSections';
+import { MutableRefObject, useRef } from 'react';
 
 export interface IIndexSectionProps {
-  leftLaneTopOffset: number;
-  rightLaneStartCliff: number;
+  leftLaneTopOffset: number; // Makes the next left lane item "slide in". Default: 200px
+  rightLaneStartCliff: number; // Delays the right lane item (image) fade animation. Default: 0.5 (meaning that the image starts fading when 50% of the next left lane item is visible)
 }
 
 const IndexSections = ({
@@ -16,10 +17,7 @@ const IndexSections = ({
 }: IIndexSectionProps): JSX.Element => {
   const container = useRef() as MutableRefObject<HTMLDivElement>;
 
-  const [leftLane, rightLane] = useMemo(() => {
-    const pairs = getIndexSections().map(ToIndexSectionConverter);
-    return zip(...pairs); // [[left1, right1], [left2, right2]] => [[left1, left2], [right1, right2]]
-  }, []);
+  const [leftLane, rightLane] = useLeftAndRightLane();
 
   useOpacityChangeOnScroll({ rightLaneStartCliff, leftLaneTopOffset });
 
