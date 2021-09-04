@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { ElementType } from 'react';
-import { IIndexSection } from '../../../data/indexSections';
+import { IIndexSection } from '../../data/indexSections';
 
 interface IProps extends IIndexSection {}
 

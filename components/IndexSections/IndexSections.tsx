@@ -19,7 +19,7 @@ const IndexSections = ({
 
   const [leftLane, rightLane] = useLeftAndRightLane();
 
-  useOpacityChangeOnScroll({ rightLaneStartCliff, leftLaneTopOffset });
+  useOpacityChangeOnScroll({ leftLaneTopOffset, rightLaneStartCliff });
 
   const { leftLaneItemHeight, triggerHook } =
     useAdaptLeftLaneItemHeight(container);

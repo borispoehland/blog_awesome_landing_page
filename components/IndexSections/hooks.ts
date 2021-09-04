@@ -1,9 +1,9 @@
 import { MutableRefObject, useEffect, useMemo, useState } from 'react';
 import resolveConfig from 'tailwindcss/resolveConfig';
-import tailwindConfig from '../../../tailwind.config.js';
-import { IIndexSectionProps } from '../IndexSections';
-import getIndexSections from '../../../data/indexSections';
-import ToIndexSectionConverter from '../converters/ToIndexSectionConverter';
+import tailwindConfig from '../../tailwind.config.js';
+import { IIndexSectionProps } from './IndexSections';
+import getIndexSections from '../../data/indexSections';
+import ToIndexSectionConverter from './ToIndexSectionConverter';
 import { zip } from 'lodash';
 
 // @ts-ignore
@@ -82,12 +82,11 @@ export const useAdaptLeftLaneItemHeight = (
         ? $leftLaneItem.css({ height: leftLaneHeightAsCss, minHeight: 0 })
         : $leftLaneItem.css({ height: 'auto', minHeight: leftLaneHeightAsCss });
 
-      const leftLaneHeightAsPx = $leftLaneItem.height() as number;
-      const windowHeightAsPx = $window.height() as number;
+      const windowHeight = $window.height() as number;
 
       setHeight({
-        leftLaneItemHeight: leftLaneHeightAsPx,
-        triggerHook: spaceFromTop / windowHeightAsPx,
+        leftLaneItemHeight: windowHeight - doubleSpaceFromTop,
+        triggerHook: spaceFromTop / windowHeight,
       });
     };
 
