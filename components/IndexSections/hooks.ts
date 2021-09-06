@@ -82,11 +82,12 @@ export const useAdaptLeftLaneItemHeight = (
         ? $leftLaneItem.css({ height: leftLaneHeightAsCss, minHeight: 0 })
         : $leftLaneItem.css({ height: 'auto', minHeight: leftLaneHeightAsCss });
 
-      const windowHeight = $window.height() as number;
+      const leftLaneHeightAsPx = $leftLaneItem.height() as number;
+      const windowHeightAsPx = $window.height() as number;
 
       setHeight({
-        leftLaneItemHeight: windowHeight - doubleSpaceFromTop,
-        triggerHook: spaceFromTop / windowHeight,
+        leftLaneItemHeight: leftLaneHeightAsPx,
+        triggerHook: spaceFromTop / windowHeightAsPx,
       });
     };
 
