@@ -11,7 +11,7 @@ const getNavItems = (): INavItem[] => {
     },
     {
       name: 'Source code',
-      href: 'https://github.com/borispoehland/blog_awesome_landing_page',
+      href: 'https://github.com/borispoehland/next-landing-boilerplate-1',
       icon: AiOutlineGithub,
     },
   ];
