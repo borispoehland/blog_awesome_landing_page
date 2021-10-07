@@ -1,5 +1,5 @@
-import NextLink from '../../NextLink';
-import { INavItem } from '../Navbar';
+import NextLink from '../NextLink';
+import { INavItem } from './Navbar';
 
 interface IProps extends INavItem {
   className?: string;

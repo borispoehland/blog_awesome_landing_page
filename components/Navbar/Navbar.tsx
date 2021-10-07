@@ -1,11 +1,10 @@
-import NextLink from '../NextLink';
 import { Menu, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
 import { RiMenu3Line } from 'react-icons/ri';
 import Image from 'next/image';
 import { IconType } from 'react-icons';
 import getNavItems from '../../data/navItems';
-import ToNavItemConverter from './converters/ToNavItemConverter';
+import ToNavItemConverter from './ToNavItemConverter';
 
 export interface INavItem {
   name: string;
@@ -21,7 +20,7 @@ const Navbar = (): JSX.Element => {
       <div className="flex items-center justify-between h-20">
         <div className="relative flex-1 h-12">
           <Image
-            src="https://www.borispoehland.com/img/bp-1.png"
+            src="/img/logo.png"
             alt="Boris Pöhland Logo"
             layout="fill"
             objectFit="contain"
