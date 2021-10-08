@@ -25,7 +25,7 @@ const IndexSections = ({
     useAdaptLeftLaneItemHeight(container);
 
   return (
-    <div className="index grid" ref={container}>
+    <div className="index grid my-24" ref={container}>
       <div style={{ gridArea: 'left-lane' }}>{leftLane}</div>
       <div style={{ gridArea: 'right-lane' }} className="hidden md:block">
         <Controller>
